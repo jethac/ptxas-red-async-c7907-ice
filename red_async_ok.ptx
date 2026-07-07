@@ -1,0 +1,11 @@
+// the SAME op WITHOUT the mbarrier operand assembles fine (control)
+.version 9.3
+.target sm_100a
+.address_size 64
+.visible .entry red_async_ok()
+{
+    .reg .b32 r<4>;
+    .reg .b64 rd<4>;
+    red.async.release.sys.global.add.u32 [rd0], r0;
+    ret;
+}

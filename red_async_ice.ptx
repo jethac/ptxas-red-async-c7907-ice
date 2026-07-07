@@ -1,0 +1,11 @@
+// red.async.release.sys with an mbarrier completion operand -> ptxas C7907 ICE
+.version 9.3
+.target sm_100a
+.address_size 64
+.visible .entry red_async_ice()
+{
+    .reg .b32 r<4>;
+    .reg .b64 rd<4>;
+    red.async.release.sys.global.add.u32 [rd0], r0, [rd1];
+    ret;
+}

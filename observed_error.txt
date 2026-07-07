@@ -1,0 +1,2 @@
+ptxas fatal   : (C7907) Internal compiler error.
+ptxas fatal   : Ptx assembly aborted due to errors
