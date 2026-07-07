@@ -25,6 +25,17 @@ ptxas fatal   : (C7907) Internal compiler error.
 ptxas fatal   : Ptx assembly aborted due to errors
 ```
 
+## Prior art — C7907 is a known Blackwell ptxas ICE class
+The **(C7907) internal compiler error is already reported** on Blackwell/SM100 by
+others, all with high-register-pressure Triton/kernel triggers:
+- NVIDIA/numba-cuda#725 — https://github.com/NVIDIA/numba-cuda/issues/725 (nvJitLink 13.1 + sm120)
+- state-spaces/mamba#904 — https://github.com/state-spaces/mamba/issues/904 (Mamba3 bwd, GB200)
+- triton-lang/triton#9933 — https://github.com/triton-lang/triton/issues/9933 (SM100, autotuner configs eliminated)
+
+**What this repo adds:** a *minimal single-instruction* trigger for C7907 — one
+`red.async` line, no register pressure, no Triton — which should make the ptxas
+codegen path far easier to isolate than the existing large-kernel repros.
+
 ## Files
 - `red_async_ice.ptx` — the crashing input (mbarrier-operand form)
 - `red_async_ok.ptx` — the no-mbarrier control that assembles
